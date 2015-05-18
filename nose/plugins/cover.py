@@ -58,6 +58,11 @@ class Coverage(Plugin):
                           default=env.get('NOSE_COVER_MIN_PERCENTAGE'),
                           help="Minimum percentage of coverage for tests "
                           "to pass [NOSE_COVER_MIN_PERCENTAGE]")
+        parser.add_option("--cover-exit-on-min-percentage", action="store_true",
+                          dest="cover_min_exit",
+                          default=False,
+                          help="Do a sys.exit(1) if coverage percentage is below "
+                          "the minumum"
         parser.add_option("--cover-inclusive", action="store_true",
                           dest="cover_inclusive",
                           default=env.get('NOSE_COVER_INCLUSIVE'),
@@ -132,6 +137,8 @@ class Coverage(Plugin):
         self.coverXmlFile = None
         if options.cover_min_percentage:
             self.coverMinPercentage = int(options.cover_min_percentage.rstrip('%'))
+        if options.cover_min_exit:
+	   self.coverMinExit = True
         if options.cover_xml:
             self.coverXmlFile = options.cover_xml_file
             log.debug('Will put XML coverage report in %s', self.coverXmlFile)
@@ -223,6 +230,7 @@ class Coverage(Plugin):
                 if percentage < self.coverMinPercentage:
                     log.error('TOTAL Coverage did not reach minimum '
                               'required: %d%%' % self.coverMinPercentage)
+                if self.coverMinExit:
                     sys.exit(1)
             else:
                 log.error("No total percentage was found in coverage output, "
