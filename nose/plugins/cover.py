@@ -232,6 +232,7 @@ class Coverage(Plugin):
                               'required: %d%%' % self.coverMinPercentage)
                 if self.coverMinExit:
                     sys.exit(1)
+		return percentage
             else:
                 log.error("No total percentage was found in coverage output, "
                           "something went wrong.")
