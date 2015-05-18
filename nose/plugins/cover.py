@@ -62,7 +62,7 @@ class Coverage(Plugin):
                           dest="cover_min_exit",
                           default=False,
                           help="Do a sys.exit(1) if coverage percentage is below "
-                          "the minumum"
+                          "the minumum")
         parser.add_option("--cover-inclusive", action="store_true",
                           dest="cover_inclusive",
                           default=env.get('NOSE_COVER_INCLUSIVE'),
