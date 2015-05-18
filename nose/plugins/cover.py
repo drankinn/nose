@@ -29,6 +29,7 @@ class Coverage(Plugin):
     coverInstance = None
     coverErase = False
     coverMinPercentage = None
+    coverMinExit = False
     score = 200
     status = {}
 
@@ -137,8 +138,7 @@ class Coverage(Plugin):
         self.coverXmlFile = None
         if options.cover_min_percentage:
             self.coverMinPercentage = int(options.cover_min_percentage.rstrip('%'))
-        if options.cover_min_exit:
-	   self.coverMinExit = True
+        self.coverMinExit = options.cover_min_exit
         if options.cover_xml:
             self.coverXmlFile = options.cover_xml_file
             log.debug('Will put XML coverage report in %s', self.coverXmlFile)
